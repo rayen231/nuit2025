@@ -9,13 +9,13 @@ def config():
     GROQ_API_KEY = ""
 
 
-def chato(emotion , query):
+def chato(emotion , query, history):
     config()
     # Define the chat Expert Agent
     emotion_based_expert = Agent(
     role="Expert chatbot",
-    goal="Analyze the user's query, respond based on their emotional state and preferences.",
-    backstory="An AI designed to understand user query and preferences, providing responses that align with the user's emotional state and personal preferences, ensuring a personalized and empathetic conversation.",
+    goal="Analyze the user's query, respond based on their emotional state and conversation history.",
+    backstory="An AI designed to understand user query and preferences, providing responses that align with the user's emotional state and personal preferences based on history of conversation, ensuring a personalized and empathetic conversation.",
     verbose=False,
     allow_delegation=False
     )
@@ -26,7 +26,7 @@ def chato(emotion , query):
     chat_task = Task(
     description=(
         f"""Analyze the user's query:{query} to:
-               1. Tailor the response based on the user's emotional state and preferences emotion {emotion}, preferance.
+               1. Tailor the response based on the user's emotional state and preferences emotion {emotion}, history {history}.
                2. Ensure that the response aligns with the user's mood and needs, providing empathy and personalization."""
     ),
     agent=emotion_based_expert,
